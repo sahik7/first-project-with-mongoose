@@ -1,5 +1,7 @@
+import { Model } from "mongoose";
+
 // creating interface
-export type Guardian = {
+export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContact: string;
@@ -8,21 +10,21 @@ export type Guardian = {
   motherContact: string;
 };
 
-export type userName = {
+export type TUserName = {
   firstName: string;
   lastName: string;
 };
 
-export type localGuardian = {
+export type TLocalGuardian = {
   name: string;
   occupation: string;
   contactNo: string;
   address: string;
 };
 
-export type Student = {
+export type TStudent = {
   id: string;
-  name: userName;
+  name: TUserName;
   gender: 'male' | 'female';
   dateOfBirth: string;
   email: string;
@@ -31,8 +33,29 @@ export type Student = {
   bloodGroup?: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'];
   presentAddress: string;
   permanentAddress: string;
-  guardian: Guardian;
-  localGuardian: localGuardian;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
   profileImg?: string;
   isActive: 'active' | 'blocked';
 };
+
+
+
+
+
+// for creating static
+export interface StudentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>
+}
+
+// for creating instance
+
+
+
+// export type StudentMethods = {
+//   isUserExists(id: string): Promise<TStudent | null>
+// }
+
+
+
+// export type StudentModel = Model<TStudent, Record<string, never>, StudentMethods>
