@@ -6,7 +6,7 @@ const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String, required: [true, "First name is required"], trim: true, maxLength: [20, "First Name can not be more than 20 Max Allowed length is 20"], validate: {
       validator: function (value: string) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1); // Sahik
+        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
         return firstNameStr === value;
       },
       message: "{VALUE} is not in capitalize format"
@@ -34,6 +34,12 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 // creating schema
 const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String, required: [true, "Student ID is required"] },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, "User ID is required"],
+    unique: true,
+    ref: "User"
+  },
   name: { type: userNameSchema, required: [true, "Student name is required"] },
   gender: {
     type: String,
@@ -53,7 +59,11 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   guardian: { type: guardianSchema, required: [true, "Guardian information is required"] },
   localGuardian: { type: localGuardianSchema, required: [true, "Local guardian information is required"] },
   profileImg: { type: String },
-  isActive: { type: String, enum: ['active', 'blocked'], required: [true, "Account status is required"], default: "active" },
+  admissionSemester: { type: Schema.Types.ObjectId, ref: "AcademicSemester" },
+  academicDepartment: { type: Schema.Types.ObjectId, ref: "AcademicDepartment" },
+  isDeleted: {
+    type: Boolean, default: false
+  }
 });
 
 // pre save middleware / hook will work on create(), save()

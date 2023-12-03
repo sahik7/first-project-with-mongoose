@@ -1,9 +1,12 @@
-export type TUser = {
-    id: string;
-    password: string;
-    needPasswordChange: boolean;
-    role: "admin" | "faculty" | "student";
-    status: "in-progress" | "blocked";
-    isDeleted: boolean;
+import express from 'express';
+import { UserControllers } from './user.controller';
+import { studentValidationSchema } from '../student/student.validation';
+import validateRequest from '../../middlewares/validateRequest';
 
-}
+const router = express.Router();
+
+router.post('/create-student', validateRequest(studentValidationSchema.studentZodSchema), UserControllers.createStudent);
+
+
+
+export const UserRoutes = router;
