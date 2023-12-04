@@ -17,7 +17,6 @@ const findLastStudentId = async () => {
         .lean();
 
     //203001   0001
-    console.log("inside from the function", lastStudent)
     return lastStudent?.id ? lastStudent.id.substring(6) : undefined;
 };
 

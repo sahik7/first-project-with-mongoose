@@ -1,18 +1,18 @@
 import { Model, Types } from "mongoose";
 
-// creating interface
+export type TUserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
+
 export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
-  fatherContact: string;
+  fatherContactNo: string;
   motherName: string;
   motherOccupation: string;
-  motherContact: string;
-};
-
-export type TUserName = {
-  firstName: string;
-  lastName: string;
+  motherContactNo: string;
 };
 
 export type TLocalGuardian = {
@@ -24,24 +24,24 @@ export type TLocalGuardian = {
 
 export type TStudent = {
   id: string;
-  name: TUserName;
-  gender: 'male' | 'female';
   user: Types.ObjectId;
-  dateOfBirth: string;
+  password: string;
+  name: TUserName;
+  gender: 'male' | 'female' | 'other';
+  dateOfBirth?: Date;
   email: string;
-  contactNumber: string;
-  emergencyNumber: string;
-  bloodGroup?: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'];
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
-  admissionSemester: Types.ObjectId;
-  academicDepartment: Types.ObjectId;
   profileImg?: string;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
+  academicDepartment: Types.ObjectId;
 };
-
 
 
 

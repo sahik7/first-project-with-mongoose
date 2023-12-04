@@ -10,12 +10,13 @@ const createStudent = catchAsync(async (req, res) => {
 
     // will call service function to send this data
     const result = await UserServices.createStudentIntoDB(password, student);
-    // res.status(200).json({
-    //     success: true,
-    //     message: 'Student is created succesfully',
-    //     data: result,
-    // });
-    sendResponse(res, { statusCode: httpStatus.OK, success: true, message: 'Student created succesfully', data: result })
+    console.log(result)
+    res.status(200).json({
+        success: true,
+        message: 'Student is created successfully',
+        data: result,
+    });
+    sendResponse(res, { statusCode: httpStatus.OK, success: true, message: 'Student created successfully', data: result })
 })
 
 export const UserControllers = {
